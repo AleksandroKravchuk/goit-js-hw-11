@@ -11,6 +11,8 @@ body {
   color: #212121;
   line-height: 1.5;
   text-align: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
 }
 
 #search-form {
@@ -50,4 +52,26 @@ button[type="submit"]{
 button[type="submit"]:hover,
 button[type="submit"]:focus{
   background-color: aquamarine;
+}
+.gallery{
+
+  display:flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.photo-card{
+
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.info{
+  display: flex;
+ text-align: center;
+ justify-content: center;
+}
+.info.not(last-child){
+  
+}
+.info-item{
+  margin-right: 40px;
 }
