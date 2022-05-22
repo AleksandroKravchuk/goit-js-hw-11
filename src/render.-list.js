@@ -1,7 +1,7 @@
 export function renderMarkup( hits,  container) {
     const markup = hits.map(({largeImageURL,webformatURL,tags,likes,views,comments,downloads}) => {
  return  `<a href=${largeImageURL}>
-  <div class="photo-card">
+  <div class="photo-card post">
   <img src=${webformatURL}  alt=${tags} loading="lazy" width=300/>
   <div class="info">
     <p class="info-item">

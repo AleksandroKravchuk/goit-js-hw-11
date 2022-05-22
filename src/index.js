@@ -6,6 +6,13 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import ApiService from './api';
 import { renderMarkup } from './render.-list';
 
+let elem = document.querySelector('.container');
+let infScroll = new InfiniteScroll( elem, {
+  // options
+  path: '.pagination__next',
+  append: '.post',
+  history: false,
+});
 
 const apiData = new ApiService();
 const gallery = new SimpleLightbox('.gallery a', {captionsData: "alt",captionDelay: 25});
