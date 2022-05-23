@@ -20,9 +20,9 @@ export default class ApiService {
         
 })
     try {
-      const response =await axios.get(`https://pixabay.com/api/?${options}`);
+      const {data} =await axios.get(`https://pixabay.com/api/?${options}`);
       this.page += 1;
-      return response.data; }
+      return data; }
       catch{Notify.failure(error.message);}        
   };
   

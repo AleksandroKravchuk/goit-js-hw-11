@@ -6,13 +6,6 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import ApiService from './api';
 import { renderMarkup } from './render.-list';
 
-// let elem = document.querySelector('.container');
-// let infScroll = new InfiniteScroll( elem, {
-//   // options
-//   path: '.pagination__next',
-//   append: '.post',
-//   history: false,
-// });
 
 const apiData = new ApiService();
 const gallery = new SimpleLightbox('.gallery a', {captionsData: "alt",captionDelay: 25});
@@ -43,14 +36,14 @@ function renderImages(evt) {
     }
     if (hits.length >= totalHits && hits.length !==0) {
       renderMarkup(hits,container);
-      notShow();
+      notDisabled();
       Notify.warning("We're sorry, but you've reached the end of search results."); 
     }
     if (hits.length < totalHits && hits.length> 1) {
-      renderMarkup(hits,container);
-      Notify.success(`Hooray! We found ${totalHits} images.`);
-      btnLoadMoreShow();
+      renderMarkup(hits, container);
       enable();
+      notDisabled();
+      Notify.success(`Hooray! We found ${totalHits} images.`);
       gallery.refresh();
     }
   })
@@ -58,25 +51,25 @@ function renderImages(evt) {
         refs.galeryList.innerHTML = '';
         Notify.failure("Oops,something went wrong")
   } );
- 
   refs.searchForm.reset();
 }
 
 // Load MORE
 function onLoadMore() {
- 
-    apiData.fetchImages().then(({ hits, totalHits }) => {
+  btnLoadMoreDisabled();
+    
+  apiData.fetchImages().then(({ hits, totalHits }) => {
       const currentPage = apiData.getCurrentPage();
-      const page = Math.ceil(totalHits /apiData.getPer_page()); ;
-   
+      const page = Math.ceil(totalHits /apiData.getPer_page()); 
     if (currentPage>page ) {
-      notShow();
+      disable();
       Notify.warning("We're sorry, but you've reached the end of search results."); 
     }
-    renderMarkup(hits,container);
+    renderMarkup(hits, container);
+    notDisabled();
     gallery.refresh();
-   
-  const { height: cardHeight } = document
+  
+    const { height: cardHeight } = document
   .querySelector(".gallery")
   .firstElementChild.getBoundingClientRect();
 
@@ -87,17 +80,17 @@ window.scrollBy({
   });
 }
   
-function btnLoadMoreShow() {
-   refs.btnLoadMore.removeAttribute("hidden");   
+function btnLoadMoreDisabled() {
+   refs.btnLoadMore.setAttribute("disabled","");
   };  
-function notShow() {
-  refs.btnLoadMore.setAttribute("hidden", "");
+function notDisabled() {
+  refs.btnLoadMore.removeAttribute("disabled");
   
 };
 function disable() {
-    refs.btnLoadMore.setAttribute("disabled", "");
+    refs.btnLoadMore.classList.add ("is-hidden");
 };
 function enable() {
-    refs.btnLoadMore.removeAttribute("disabled");  
+    refs.btnLoadMore.classList.remove("is-hidden");  
 };
     
