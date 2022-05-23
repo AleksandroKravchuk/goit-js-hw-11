@@ -12,7 +12,7 @@
     <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
     <button type="submit">Search</button>
   </form>
-  <div class="gallery container">
+  <div class="gallery container" data-infinite-scroll='{ "path": ".pagination__next", "append": ".post", "history": false }'>
     <!-- Карточки изображений -->
   </div>
 <button type="button"class="load-more" hidden>Load more</button>
