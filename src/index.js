@@ -81,11 +81,12 @@ window.scrollBy({
 }
   
 function btnLoadMoreDisabled() {
-   refs.btnLoadMore.setAttribute("disabled","");
+  refs.btnLoadMore.setAttribute("disabled", "");
+  refs.btnLoadMore.textContent = "loading...";
   };  
 function notDisabled() {
   refs.btnLoadMore.removeAttribute("disabled");
-  
+  refs.btnLoadMore.textContent = "Load more";
 };
 function disable() {
     refs.btnLoadMore.classList.add ("is-hidden");
