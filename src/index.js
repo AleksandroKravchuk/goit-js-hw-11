@@ -1,5 +1,4 @@
 import './css/styles.css';
-import axios from "axios";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -8,7 +7,7 @@ import { renderMarkup } from './render.-list';
 
 
 const apiData = new ApiService();
-const gallery = new SimpleLightbox('.gallery a', {captionsData: "alt",captionDelay: 25});
+const gallery = new SimpleLightbox('.gallery a', {captionsData: "alt", captionDelay: 25});
 
 const refs = {
   searchForm: document.querySelector("#search-form"),
@@ -30,16 +29,17 @@ function renderImages(evt) {
   }
    apiData.fetchImages()
      .then(({ hits, totalHits }) => {
-      
+  
     if (totalHits === 0) {
       Notify.failure("Sorry, there are no images matching your search query. Please try again.");      
     }
     if (hits.length >= totalHits && hits.length !==0) {
       renderMarkup(hits,container);
       notDisabled();
+      gallery.refresh();
       Notify.warning("We're sorry, but you've reached the end of search results."); 
     }
-    if (hits.length < totalHits && hits.length> 1) {
+    if (hits.length < totalHits && hits.length>= 1) {
       renderMarkup(hits, container);
       enable();
       notDisabled();
@@ -61,7 +61,8 @@ function onLoadMore() {
   apiData.fetchImages().then(({ hits, totalHits }) => {
       const currentPage = apiData.getCurrentPage();
       const page = Math.ceil(totalHits /apiData.getPer_page()); 
-    if (currentPage>page ) {
+    if (currentPage>=page ) {
+     
       disable();
       Notify.warning("We're sorry, but you've reached the end of search results."); 
     }
